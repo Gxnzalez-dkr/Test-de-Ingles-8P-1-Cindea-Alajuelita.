@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Proficiency Test – MEP Style</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d2545;
+    --blue: #1a4b8c;
+    --sky: #3b82f6;
+    --gold: #f59e0b;
+    --light: #f0f6ff;
+    --white: #ffffff;
+    --gray: #64748b;
+    --success: #10b981;
+    --danger: #ef4444;
+    --border: #cbd5e1;
+    --card-shadow: 0 4px 24px rgba(13,37,69,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(135deg, #0d2545 0%, #1a4b8c 60%, #2563eb 100%);
+    min-height: 100vh;
+    padding: 0 0 60px 0;
+  }
+
+  /* ── HEADER ── */
+  header { background: var(--navy); border-bottom: 4px solid var(--gold); }
+
+  .header-inner {
+    max-width: 900px; margin: 0 auto;
+    padding: 18px 20px 14px;
+    display: flex; align-items: center; gap: 14px;
+  }
+
+  .logo-shield {
+    width: 48px; height: 48px; background: var(--gold);
+    border-radius: 12px; display: flex; align-items: center;
+    justify-content: center; font-size: 24px; flex-shrink: 0;
+  }
+
+  .header-text h1 {
+    font-family: 'DM Serif Display', serif;
+    color: var(--white); font-size: 1.15rem; line-height: 1.2;
+  }
+
+  .header-text p { color: #93c5fd; font-size: 0.75rem; margin-top: 2px; font-weight: 300; }
+
+  .author-bar {
+    background: rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    text-align: center; padding: 6px 16px;
+    font-size: 0.73rem; color: #bfdbfe; letter-spacing: 0.3px;
+  }
+  .author-bar strong { color: var(--gold); font-weight: 600; }
+
+  /* Hint bar */
+  .hint-bar {
+    background: rgba(245,158,11,0.12);
+    border-top: 1px solid rgba(245,158,11,0.2);
+    text-align: center; padding: 5px 16px;
+    font-size: 0.7rem; color: #fbbf24; letter-spacing: 0.2px;
+  }
+
+  .progress-bar-wrap { background: rgba(255,255,255,0.08); height: 5px; }
+  .progress-bar-fill {
+    height: 5px;
+    background: linear-gradient(90deg, var(--gold), #fbbf24);
+    transition: width 0.5s ease; border-radius: 0 3px 3px 0;
+  }
+
+  /* ── MAIN ── */
+  main { max-width: 900px; margin: 28px auto 0; padding: 0 14px; }
+
+  .section-label {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px; margin-top: 30px;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  .section-badge {
+    background: var(--gold); color: var(--navy);
+    font-weight: 700; font-size: 0.68rem;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    padding: 5px 14px; border-radius: 100px; white-space: nowrap;
+  }
+  .section-line { flex: 1; height: 1px; background: rgba(255,255,255,0.2); }
+  .section-icon { font-size: 1.1rem; color: rgba(255,255,255,0.7); white-space: nowrap; font-size: 0.8rem; }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white); border-radius: 16px;
+    padding: 24px 22px 18px; margin-bottom: 14px;
+    box-shadow: var(--card-shadow);
+    border: 1.5px solid rgba(255,255,255,0.5);
+    position: relative;
+  }
+
+  .q-number {
+    position: absolute; top: -13px; left: 20px;
+    background: var(--blue); color: #fff;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px;
+    padding: 3px 12px; border-radius: 100px;
+  }
+
+  .q-text {
+    font-size: 0.95rem; color: var(--navy);
+    font-weight: 500; margin-bottom: 14px; line-height: 1.55;
+  }
+
+  /* ── READING PASSAGE (generic) ── */
+  .passage-wrap {
+    margin-bottom: 0;
+  }
+
+  .passage-label {
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.2px; color: var(--gray); margin-bottom: 12px;
+  }
+
+  .passage-img {
+    width: 100%; border-radius: 10px; margin-bottom: 14px;
+    overflow: hidden; display: flex; justify-content: center;
+    background: #f0f6ff;
+  }
+  .passage-img svg { width: 100%; max-height: 160px; display: block; }
+
+  /* ── EMAIL STYLE ── */
+  .email-card {
+    background: #f8fafc; border: 1px solid #e2e8f0;
+    border-radius: 12px; overflow: hidden; font-size: 0.88rem;
+  }
+  .email-header { background: #1e3a5f; padding: 12px 18px; display: grid; gap: 4px; }
+  .eh-row { display: flex; gap: 8px; color: #bfdbfe; font-size: 0.78rem; align-items: baseline; }
+  .eh-row .lbl {
+    color: var(--gold); font-weight: 700; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.8px; min-width: 58px; flex-shrink: 0;
+  }
+  .subject-row {
+    margin-top: 5px; padding-top: 7px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.85rem; color: #fff; font-weight: 600;
+  }
+  .email-body { padding: 16px 18px; color: #334155; line-height: 1.78; }
+  .email-body p { margin-bottom: 10px; }
+  .email-body ul { margin: 8px 0 12px 22px; }
+  .email-body ul li { margin-bottom: 5px; }
+  .email-body .sign { margin-top: 14px; font-weight: 500; color: var(--navy); }
+
+  /* ── TICKET STYLE ── */
+  .ticket-card {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0d2545 100%);
+    border-radius: 14px; overflow: hidden; color: white;
+    position: relative;
+  }
+  .ticket-header {
+    background: rgba(255,255,255,0.08); padding: 12px 20px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .ticket-airline { font-weight: 700; font-size: 1rem; color: var(--gold); }
+  .ticket-type { font-size: 0.72rem; color: #93c5fd; margin-left: auto; }
+  .ticket-body { padding: 16px 20px; display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; }
+  
+  .ticket-city .city-code { font-size: 2rem; font-weight: 700; color: white; line-height: 1; }
+  .ticket-city .city-name { font-size: 0.72rem; color: #93c5fd; margin-top: 2px; }
+  .ticket-arrow { text-align: center; font-size: 1.5rem; color: var(--gold); }
+  .ticket-city.dest { text-align: right; }
+  .ticket-footer {
+    padding: 12px 20px; border-top: 1px dashed rgba(255,255,255,0.2);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    font-size: 0.72rem;
+  }
+  .ticket-field .tf-label { color: #93c5fd; text-transform: uppercase; letter-spacing: 0.8px; font-size: 0.62rem; }
+  .ticket-field .tf-val { color: white; font-weight: 600; margin-top: 2px; font-size: 0.85rem; }
+  .ticket-barcode {
+    padding: 10px 20px;
+    display: flex; justify-content: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .barcode-lines { display: flex; gap: 2px; height: 30px; align-items: flex-end; }
+  .barcode-lines span { background: rgba(255,255,255,0.6); display: block; border-radius: 1px; }
+
+  /* ── ANNOUNCEMENT STYLE ── */
+  .announce-card {
+    border: 3px solid var(--gold); border-radius: 12px;
+    overflow: hidden; background: #fff;
+  }
+  .announce-header {
+    background: var(--gold); padding: 10px 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .announce-header .ann-icon { font-size: 1.4rem; }
+  .announce-header .ann-title { font-weight: 700; color: var(--navy); font-size: 1rem; }
+  .announce-body { padding: 16px 18px; color: #334155; line-height: 1.72; font-size: 0.88rem; }
+  .announce-body p { margin-bottom: 10px; }
+  .announce-body .ann-footer { font-size: 0.78rem; color: var(--gray); font-style: italic; margin-top: 12px; }
+
+  /* ── CHAT STYLE ── */
+  .chat-card {
+    background: #f1f5f9; border-radius: 12px; padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+    font-size: 0.87rem;
+  }
+  .chat-msg { display: flex; gap: 8px; align-items: flex-end; }
+  .chat-msg.right { flex-direction: row-reverse; }
+  .chat-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+    background: #dbeafe;
+  }
+  .chat-msg.right .chat-avatar { background: #d1fae5; }
+  .chat-bubble {
+    background: white; border-radius: 14px 14px 14px 4px;
+    padding: 9px 13px; max-width: 75%;
+    line-height: 1.5; color: #334155;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .chat-msg.right .chat-bubble {
+    background: #1e3a5f; color: white;
+    border-radius: 14px 14px 4px 14px;
+  }
+  .chat-name { font-size: 0.66rem; color: var(--gray); margin-bottom: 3px; font-weight: 600; }
+  .chat-msg.right .chat-name { text-align: right; }
+  .chat-time { font-size: 0.62rem; color: var(--gray); margin-top: 2px; }
+
+  /* ── INFO TEXT STYLE ── */
+  .info-card {
+    background: #f0f6ff; border-left: 4px solid var(--sky);
+    border-radius: 0 12px 12px 0; padding: 16px 18px;
+    color: #334155; line-height: 1.78; font-size: 0.88rem;
+  }
+  .info-card p { margin-bottom: 10px; }
+  .info-card p:last-child { margin-bottom: 0; }
+  .info-card .info-title {
+    font-weight: 700; color: var(--navy); margin-bottom: 10px;
+    font-size: 0.95rem;
+  }
+
+  /* ── TRANSLATABLE WORDS ── */
+  .translatable {
+    cursor: pointer;
+    border-bottom: 1px dashed #10b981;
+    transition: all 0.15s;
+  }
+  .translatable:hover { background: #d1fae5; border-radius: 3px; }
+  .translatable.translated {
+    color: #065f46; background: #d1fae5;
+    border-bottom: 2px solid #10b981;
+    border-radius: 3px; padding: 0 2px;
+  }
+
+  /* ── OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 9px; }
+
+  .option {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 13px 15px; border-radius: 12px;
+    border: 2px solid var(--border); cursor: pointer;
+    transition: all 0.18s; font-size: 0.92rem;
+    color: #334155; user-select: none;
+    background: #f8fafc; line-height: 1.45;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .option:active { transform: scale(0.98); }
+  .option:hover { border-color: var(--sky); background: #eff6ff; }
+  .option.selected { border-color: var(--sky); background: #dbeafe; color: var(--navy); }
+  .option.correct  { border-color: var(--success); background: #d1fae5; color: #065f46; }
+  .option.wrong    { border-color: var(--danger); background: #fee2e2; color: #991b1b; }
+
+  .option-letter {
+    min-width: 30px; height: 30px; border-radius: 50%;
+    background: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.8rem; flex-shrink: 0;
+    margin-top: 0; transition: background 0.18s, color 0.18s;
+  }
+  .option.selected .option-letter { background: var(--sky); color: #fff; }
+  .option.correct .option-letter  { background: var(--success); color: #fff; }
+  .option.wrong .option-letter    { background: var(--danger); color: #fff; }
+
+  .feedback-tag {
+    margin-left: auto; font-size: 0.72rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 100px; flex-shrink: 0;
+    align-self: center; white-space: nowrap;
+  }
+  .tag-correct { background: #bbf7d0; color: #065f46; }
+  .tag-wrong   { background: #fecaca; color: #991b1b; }
+
+  /* ── AUDIO BTN ── */
+  .audio-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--navy); color: #fff; border: none;
+    border-radius: 100px; padding: 10px 22px;
+    font-size: 0.85rem; font-weight: 500; cursor: pointer;
+    margin-bottom: 16px; transition: background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .audio-btn:active { opacity: 0.85; }
+  .audio-btn.playing { background: var(--sky); }
+
+  /* ── IMAGE OPTIONS ── */
+  .img-options { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .img-option {
+    flex: 1; min-width: 100px; max-width: 200px;
+    border: 3px solid var(--border); border-radius: 14px;
+    overflow: hidden; cursor: pointer; transition: all 0.2s;
+    background: #f8fafc; display: flex; flex-direction: column;
+    align-items: center; padding-bottom: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .img-option:active { transform: scale(0.96); }
+  .img-option.selected { border-color: var(--sky); background: #dbeafe; }
+  .img-option.correct  { border-color: var(--success); background: #d1fae5; }
+  .img-option.wrong    { border-color: var(--danger); background: #fee2e2; }
+  .img-option svg { width: 100%; height: 115px; display: block; }
+  .img-option .opt-label { margin-top: 6px; font-size: 0.74rem; font-weight: 700; color: var(--gray); }
+  .img-option.selected .opt-label { color: var(--blue); }
+  .img-option.correct .opt-label  { color: #065f46; }
+  .img-option.wrong .opt-label    { color: #991b1b; }
+
+  /* ── ACTION BAR ── */
+  .action-bar {
+    display: flex; justify-content: center;
+    gap: 12px; margin-top: 36px; flex-wrap: wrap;
+  }
+
+  .btn {
+    border: none; border-radius: 100px;
+    padding: 15px 36px; font-size: 0.97rem;
+    font-weight: 700; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.15s, transform 0.1s;
+    min-width: 110px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:active { transform: scale(0.96); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  .btn-send   { background: linear-gradient(135deg, var(--gold), #fbbf24); color: var(--navy); box-shadow: 0 5px 18px rgba(245,158,11,0.35); }
+  .btn-save   { background: var(--navy); color: #fff; box-shadow: 0 3px 12px rgba(13,37,69,0.25); }
+  .btn-cancel { background: #f1f5f9; color: #64748b; border: 2px solid var(--border); }
+
+  /* ── SCORE ── */
+  .score-panel {
+    display: none; background: var(--white);
+    border-radius: 20px; padding: 36px 28px;
+    margin-top: 32px; text-align: center;
+    box-shadow: 0 10px 40px rgba(13,37,69,0.2);
+  }
+  .score-panel.visible { display: block; animation: popIn 0.5s cubic-bezier(.175,.885,.32,1.275); }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.86); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .score-emoji { font-size: 3rem; margin-bottom: 10px; }
+  .score-title { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--navy); }
+  .score-num   { font-size: 2.8rem; font-weight: 700; color: var(--blue); margin: 8px 0; }
+  .score-msg   { color: var(--gray); font-size: 0.95rem; }
+  .score-breakdown { display: flex; justify-content: center; gap: 14px; margin-top: 20px; flex-wrap: wrap; }
+  .breakdown-item { background: var(--light); border-radius: 12px; padding: 12px 18px; text-align: center; min-width: 90px; }
+  .bi-label { font-size: 0.68rem; color: var(--gray); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .bi-val   { font-size: 1.4rem; font-weight: 700; color: var(--navy); }
+
+  .btn-retry {
+    margin-top: 22px; background: var(--navy); color: #fff;
+    border: none; border-radius: 100px; padding: 12px 36px;
+    font-size: 0.92rem; font-weight: 700; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 24px; right: 16px;
+    background: var(--navy); color: #fff;
+    padding: 12px 22px; border-radius: 12px;
+    font-size: 0.88rem; font-weight: 600;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    transform: translateY(80px); opacity: 0;
+    transition: all 0.35s cubic-bezier(.175,.885,.32,1.275);
+    z-index: 999; max-width: calc(100vw - 32px);
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 600px) {
+    .header-inner { padding: 14px 14px 12px; gap: 10px; }
+    .logo-shield { width: 42px; height: 42px; font-size: 20px; }
+    .header-text h1 { font-size: 1rem; }
+    .card { padding: 22px 14px 16px; }
+    .option { padding: 13px 12px; font-size: 0.9rem; }
+    .option-letter { min-width: 28px; height: 28px; font-size: 0.76rem; }
+    .img-options { gap: 8px; }
+    .img-option { min-width: 88px; }
+    .action-bar { gap: 8px; }
+    .btn { padding: 14px 22px; font-size: 0.9rem; min-width: 90px; }
+    .ticket-body { grid-template-columns: 1fr auto 1fr; gap: 6px; }
+    .ticket-city .city-code { font-size: 1.6rem; }
+    .ticket-footer { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .chat-bubble { max-width: 85%; }
+    .score-breakdown { gap: 10px; }
+    .breakdown-item { min-width: 80px; padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-shield">🏫</div>
+    <div class="header-text">
+      <h1>English Language Proficiency Test</h1>
+      <p>Página creada por estudiante del CINDEA · Bachillerato Practice</p>
+    </div>
+  </div>
+  <div class="author-bar">
+    Creado por <strong>Joarding Manuel Castro González</strong> · Sección <strong>8P-1</strong>
+  </div>
+  <div class="hint-bar">
+    💡 Tip: Toca cualquier palabra <u>subrayada</u> para ver su traducción al español
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+  </div>
+</header>
+
+<main id="testForm">
+    SECTION 2 · READING (Q6–Q20)
+══════════════════════════════════════════ -->
+<div class="section-label">
+  <span class="section-badge">📖 Reading</span>
+  <div class="section-line"></div>
+  <span class="section-icon">Questions 6–20 · Click words to translate</span>
+</div>
+
+<!-- ─── TEXT 1: EMAIL (Cybersecurity) ─── -->
+<div class="card" style="padding-top:22px;">
+  <div class="passage-label">📧 Read the email and answer the questions below.</div>
+  <div class="email-card">
+    <div class="email-header">
+      <div class="eh-row"><span class="lbl">From:</span> john.doe@company.com</div>
+      <div class="eh-row"><span class="lbl">To:</span> david.smith@company.com</div>
+      <div class="eh-row"><span class="lbl">Date:</span> March 21</div>
+      <div class="eh-row subject-row"><span class="lbl" style="color:#93c5fd">Subject:</span> Re: Cybersecurity Concerns</div>
+    </div>
+    <div class="email-body translatable-zone">
+      <p>Dear David,</p>
+      <p>Thank you for raising this important issue. I fully understand your concerns and want to reassure you that we are actively working on improving our cybersecurity.</p>
+      <p>Currently, we have key measures in place, including firewalls and regular software updates, but I agree that we need to enhance our defenses. I'm planning on taking the following actions:</p>
+      <ul>
+        <li>Conduct a full security audit to identify vulnerabilities.</li>
+        <li>Roll out mandatory cybersecurity training for all employees.</li>
+        <li>Implement advanced monitoring tools for real-time threat detection.</li>
+        <li>Review and update our incident response plan.</li>
+      </ul>
+      <p>I'll be happy to meet and discuss these steps in more detail. Let me know when you have time.</p>
+      <p class="sign">Best regards,<br>John Doe</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 6</div>
+  <div class="q-text">Which of the following reflects the company's cybersecurity status?</div>
+  <div class="options" data-question="6" data-answer="A">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> The company has identified certain vulnerabilities that need addressing.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> The company has already completed a full security audit.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> A recent audit confirmed that the company is fully prepared to handle any cyber-attack.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 7</div>
+  <div class="q-text">How would you characterize the interaction between John and David?</div>
+  <div class="options" data-question="7" data-answer="C">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> The interaction is casual and lacks a clear focus on resolving the problem.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> David is confrontational, criticizing John's approach without offering feedback.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> David and John engage in a collaborative exchange focused on addressing a specific issue.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 8</div>
+  <div class="q-text">What does John's response reveal about his personality as an employer?</div>
+  <div class="options" data-question="8" data-answer="A">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> John is proactive and solution-oriented, addressing the issue with a clear plan.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> John is defensive, justifying the current system without suggesting improvements.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> John is overly cautious and avoids making significant changes to the current system.</div>
+  </div>
+</div>
+
+<!-- ─── TEXT 2: AIRPLANE TICKET ─── -->
+<div class="card" style="padding-top:22px; margin-top:8px;">
+  <div class="passage-label">✈️ Read the boarding pass and answer the questions below.</div>
+  <div class="ticket-card">
+    <div class="ticket-header">
+      <span style="font-size:1.3rem;">✈️</span>
+      <span class="ticket-airline">LACSA Airlines</span>
+      <span class="ticket-type">BOARDING PASS · Economy</span>
+    </div>
+    <div class="ticket-body">
+      <div class="ticket-city">
+        <div class="city-code">SJO</div>
+        <div class="city-name">San José, Costa Rica</div>
+      </div>
+      <div class="ticket-arrow">→</div>
+      <div class="ticket-city dest">
+        <div class="city-code">MIA</div>
+        <div class="city-name">Miami, USA</div>
+      </div>
+    </div>
+    <div class="ticket-footer">
+      <div class="ticket-field">
+        <div class="tf-label">Passenger</div>
+        <div class="tf-val">Ana Rojas</div>
+      </div>
+      <div class="ticket-field">
+        <div class="tf-label">Date</div>
+        <div class="tf-val">April 14, 2025</div>
+      </div>
+      <div class="ticket-field">
+        <div class="tf-label">Departure</div>
+        <div class="tf-val">07:45 AM</div>
+      </div>
+      <div class="ticket-field">
+        <div class="tf-label">Arrival</div>
+        <div class="tf-val">11:20 AM</div>
+      </div>
+      <div class="ticket-field">
+        <div class="tf-label">Gate</div>
+        <div class="tf-val">B12</div>
+      </div>
+      <div class="ticket-field">
+        <div class="tf-label">Seat</div>
+        <div class="tf-val">14C</div>
+      </div>
+    </div>
+    <div class="ticket-barcode">
+      <div class="barcode-lines" id="barcodeLines"></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 9</div>
+  <div class="q-text">What time does the flight depart?</div>
+  <div class="options" data-question="9" data-answer="B">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> 11:20 AM</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> 07:45 AM</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> 04:14 PM</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 10</div>
+  <div class="q-text">What is the destination of this flight?</div>
+  <div class="options" data-question="10" data-answer="C">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> San José, Costa Rica.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> Bogotá, Colombia.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> Miami, USA.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 11</div>
+  <div class="q-text">Which gate should Ana go to for her flight?</div>
+  <div class="options" data-question="11" data-answer="A">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> Gate B12.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> Gate C14.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> Gate A07.</div>
+  </div>
+</div>
+
+<!-- ─── TEXT 3: ANNOUNCEMENT ─── -->
+<div class="card" style="padding-top:22px; margin-top:8px;">
+  <div class="passage-label">📢 Read the announcement and answer the questions below.</div>
+  <div class="announce-card">
+    <div class="announce-header">
+      <span class="ann-icon">📢</span>
+      <span class="ann-title">SCHOOL COMMUNITY NOTICE</span>
+    </div>
+    <div class="announce-body translatable-zone">
+      <p>Dear students and parents, we are pleased to announce that our school will be hosting the Annual Science Fair on Friday, May 9th, from 9:00 AM to 3:00 PM in the school gymnasium.</p>
+      <p>All students from grades 7 to 11 are invited to participate by presenting a science project. Projects must be submitted to the Science Department by April 25th. Each project will be evaluated by a panel of teachers and two external judges from the National University.</p>
+      <p>Winners in each category will receive a certificate of excellence and a monetary prize. Refreshments will be available during the event. Parents and community members are warmly welcome to attend.</p>
+      <p class="ann-footer">For more information, contact: sciencefair@schoolcr.edu</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 12</div>
+  <div class="q-text">When is the deadline to submit a science project?</div>
+  <div class="options" data-question="12" data-answer="B">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> May 9th.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> April 25th.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> April 9th.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 13</div>
+  <div class="q-text">Who will evaluate the projects at the Science Fair?</div>
+  <div class="options" data-question="13" data-answer="C">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> Only students from grade 11.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> Parents and community members.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> A panel of teachers and two external judges.</div>
+  </div>
+</div>
+
+<!-- ─── TEXT 4: CHAT CONVERSATION ─── -->
+<div class="card" style="padding-top:22px; margin-top:8px;">
+  <div class="passage-label">💬 Read the conversation and answer the questions below.</div>
+  <div class="chat-card translatable-zone">
+
+    <div class="chat-msg">
+      <div class="chat-avatar">👧</div>
+      <div>
+        <div class="chat-name">Sofia</div>
+        <div class="chat-bubble">Hey Lucas! Are you going to the school trip next week?</div>
+        <div class="chat-time">10:02 AM</div>
+      </div>
+    </div>
+
+    <div class="chat-msg right">
+      <div class="chat-avatar">👦</div>
+      <div>
+        <div class="chat-name" style="text-align:right">Lucas</div>
+        <div class="chat-bubble">Yes! I'm really excited. We're visiting the Rainforest Museum, right?</div>
+        <div class="chat-time" style="text-align:right">10:04 AM</div>
+      </div>
+    </div>
+
+    <div class="chat-msg">
+      <div class="chat-avatar">👧</div>
+      <div>
+        <div class="chat-name">Sofia</div>
+        <div class="chat-bubble">Exactly! We leave at 7 AM from school. Don't forget to bring your lunch and a water bottle.</div>
+        <div class="chat-time">10:06 AM</div>
+      </div>
+    </div>
+
+    <div class="chat-msg right">
+      <div class="chat-avatar">👦</div>
+      <div>
+        <div class="chat-name" style="text-align:right">Lucas</div>
+        <div class="chat-bubble">Got it. Do we need permission from our parents?</div>
+        <div class="chat-time" style="text-align:right">10:07 AM</div>
+      </div>
+    </div>
+
+    <div class="chat-msg">
+      <div class="chat-avatar">👧</div>
+      <div>
+        <div class="chat-name">Sofia</div>
+        <div class="chat-bubble">Yes, the signed permission slip must be handed in by Thursday. Don't forget!</div>
+        <div class="chat-time">10:08 AM</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 14</div>
+  <div class="q-text">What time do the students leave for the trip?</div>
+  <div class="options" data-question="14" data-answer="A">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> 7:00 AM from school.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> 10:00 AM from home.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> 8:30 AM from the museum.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 15</div>
+  <div class="q-text">What must Lucas hand in before Thursday?</div>
+  <div class="options" data-question="15" data-answer="B">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> His lunch and a water bottle.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> A signed permission slip from his parents.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> A science project about the rainforest.</div>
+  </div>
+</div>
+
+<!-- ─── TEXT 5: INFORMATIVE TEXT ─── -->
+<div class="card" style="padding-top:22px; margin-top:8px;">
+  <div class="passage-label">📰 Read the informative text and answer the questions below.</div>
+  <!-- SVG illustration: planet/nature -->
+  <div class="passage-img" style="margin-bottom:14px;">
+    <svg viewBox="0 0 860 160" xmlns="http://www.w3.org/2000/svg">
+      <rect width="860" height="160" fill="#e0f2fe"/>
+      <!-- Sky -->
+      <ellipse cx="430" cy="0" rx="430" ry="80" fill="#bae6fd" opacity="0.4"/>
+      <!-- Sun -->
+      <circle cx="780" cy="38" r="28" fill="#fbbf24" opacity="0.9"/>
+      <line x1="780" y1="4" x2="780" y2="0" stroke="#fbbf24" stroke-width="3"/>
+      <line x1="808" y1="12" x2="812" y2="8" stroke="#fbbf24" stroke-width="3"/>
+      <line x1="814" y1="38" x2="818" y2="38" stroke="#fbbf24" stroke-width="3"/>
+      <!-- Ground -->
+      <rect x="0" y="110" width="860" height="50" fill="#86efac"/>
+      <!-- Trees -->
+      <rect x="60" y="80" width="10" height="34" fill="#92400e"/>
+      <ellipse cx="65" cy="72" rx="22" ry="18" fill="#22c55e"/>
+      <rect x="160" y="70" width="12" height="44" fill="#92400e"/>
+      <ellipse cx="166" cy="60" rx="26" ry="20" fill="#16a34a"/>
+      <rect x="280" y="75" width="10" height="38" fill="#92400e"/>
+      <ellipse cx="285" cy="66" rx="22" ry="18" fill="#22c55e"/>
+      <!-- Mountains -->
+      <polygon points="400,110 470,40 540,110" fill="#94a3b8"/>
+      <polygon points="470,110 530,55 590,110" fill="#64748b"/>
+      <polygon points="550,110 600,65 650,110" fill="#94a3b8"/>
+      <!-- River -->
+      <path d="M0 130 Q100 120 200 135 Q300 148 400 130 Q500 112 600 130 Q700 148 860 128" stroke="#38bdf8" stroke-width="6" fill="none" opacity="0.6"/>
+      <!-- Birds -->
+      <path d="M200 28 Q205 24 210 28" stroke="#334155" stroke-width="1.5" fill="none"/>
+      <path d="M218 22 Q223 18 228 22" stroke="#334155" stroke-width="1.5" fill="none"/>
+      <path d="M600 35 Q605 31 610 35" stroke="#334155" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="info-card translatable-zone">
+    <div class="info-title">🌿 Costa Rica: A Leader in Environmental Conservation</div>
+    <p>Costa Rica is a small country located in Central America, but it is internationally recognized for its extraordinary commitment to protecting the environment. Although it covers less than 0.03% of the Earth's surface, it is home to nearly 5% of the world's biodiversity, including thousands of plant, bird, and insect species.</p>
+    <p>The country has established a network of national parks and protected areas that cover approximately 25% of its territory. These areas serve as vital habitats for endangered species such as the jaguar, the tapir, and several types of sea turtles that nest on Costa Rican beaches every year.</p>
+    <p>Costa Rica has also become a model in the use of renewable energy. In recent years, the country has generated over 99% of its electricity from clean sources, including hydroelectric, geothermal, and wind power. The government continues to promote sustainable tourism as a key part of the national economy, attracting visitors from all over the world who come to enjoy its rainforests, volcanoes, and wildlife.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 16</div>
+  <div class="q-text">What percentage of the Earth's biodiversity does Costa Rica contain?</div>
+  <div class="options" data-question="16" data-answer="B">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> 0.03%</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> Nearly 5%</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> 25%</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 17</div>
+  <div class="q-text">What percentage of Costa Rica's territory is protected land?</div>
+  <div class="options" data-question="17" data-answer="C">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> About 5%</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> Over 50%</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> Approximately 25%</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 18</div>
+  <div class="q-text">How does Costa Rica generate most of its electricity?</div>
+  <div class="options" data-question="18" data-answer="A">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> From renewable energy sources like hydro, geothermal, and wind power.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> Mainly from coal and petroleum-based plants.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> Through solar panels installed across the country.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 · LISTENING (Q1–Q5)
+══════════════════════════════════════════ -->
+<div class="section-label" style="margin-top:0">
+  <span class="section-badge">🎧 Listening</span>
+  <div class="section-line"></div>
+  <span class="section-icon">Questions 1–5</span>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 1</div>
+  <div class="q-text">Listen to the audio and choose the correct answer.</div>
+  <button class="audio-btn" onclick="playAudio(this,'My name is Carlos. I am a student.')"><span>▶</span> Play Audio</button>
+  <div class="options" data-question="1" data-answer="B">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> Carlos is a teacher.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> Carlos is a student.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> Carlos is a doctor.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">D</span> Carlos is an engineer.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 2</div>
+  <div class="q-text">Listen to the audio and choose the correct answer.</div>
+  <button class="audio-btn" onclick="playAudio(this,'The weather today is sunny and warm. Perfect for the beach.')"><span>▶</span> Play Audio</button>
+  <div class="options" data-question="2" data-answer="A">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> The weather is sunny and warm.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> The weather is cold and rainy.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> The weather is cloudy and windy.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">D</span> The weather is snowing outside.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 3</div>
+  <div class="q-text">Listen and choose what time it is.</div>
+  <button class="audio-btn" onclick="playAudio(this,'Excuse me, what time is it? It is half past three in the afternoon.')"><span>▶</span> Play Audio</button>
+  <div class="options" data-question="3" data-answer="C">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> 3:00 PM</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> 3:15 PM</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> 3:30 PM</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">D</span> 3:45 PM</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 4</div>
+  <div class="q-text">Listen to the conversation. Where is Maria going?</div>
+  <button class="audio-btn" onclick="playAudio(this,'Hey Maria, where are you going? I am going to the supermarket to buy some vegetables and fruits.')"><span>▶</span> Play Audio</button>
+  <div class="options" data-question="4" data-answer="B">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> To the school.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> To the supermarket.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> To the hospital.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">D</span> To the park.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 5</div>
+  <div class="q-text">Listen and choose the correct description.</div>
+  <button class="audio-btn" onclick="playAudio(this,'She has long brown hair and blue eyes. She is wearing a red dress.')"><span>▶</span> Play Audio</button>
+  <div class="options" data-question="5" data-answer="D">
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">A</span> Short blond hair and green eyes, blue dress.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">B</span> Long black hair and brown eyes, red dress.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">C</span> Long brown hair and green eyes, blue dress.</div>
+    <div class="option" onclick="selectOption(this)"><span class="option-letter">D</span> Long brown hair and blue eyes, red dress.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+ 
+<!-- ══════════════════════════════════════════
+     SECTION 3 · LISTEN & CHOOSE (Q19–Q21)
+══════════════════════════════════════════ -->
+<div class="section-label">
+  <span class="section-badge">🖼️ Listen &amp; Choose</span>
+  <div class="section-line"></div>
+  <span class="section-icon">Questions 19–21</span>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 19</div>
+  <div class="q-text">Listen and select the image that matches what you hear.</div>
+  <button class="audio-btn" onclick="playAudio(this,'I am eating an apple.')"><span>▶</span> Play Audio</button>
+  <div class="img-options" data-question="19" data-answer="A">
+    <div class="img-option" onclick="selectImgOption(this)">
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="140" fill="#fef9ee"/>
+        <rect x="78" y="78" width="44" height="38" rx="6" fill="#3b82f6"/>
+        <circle cx="100" cy="64" r="22" fill="#fcd9a8"/>
+        <ellipse cx="100" cy="46" rx="20" ry="10" fill="#92400e"/>
+        <path d="M91 61 Q94 65 97 61" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M103 61 Q106 65 109 61" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <line x1="122" y1="90" x2="148" y2="73" stroke="#fcd9a8" stroke-width="9" stroke-linecap="round"/>
+        <ellipse cx="155" cy="66" rx="15" ry="16" fill="#ef4444"/>
+        <ellipse cx="148" cy="58" rx="7" ry="9" fill="#dc2626"/>
+        <line x1="155" y1="51" x2="157" y2="44" stroke="#92400e" stroke-width="2"/>
+        <path d="M157 45 Q163 40 166 45" stroke="#22c55e" stroke-width="2.5" fill="none"/>
+        <path d="M147 68 Q150 72 155 70" stroke="#fef9ee" stroke-width="3" fill="none"/>
+      </svg>
+      <span class="opt-label">A</span>
+    </div>
+    <div class="img-option" onclick="selectImgOption(this)">
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="140" fill="#f0fdf4"/>
+        <rect x="78" y="78" width="44" height="38" rx="6" fill="#10b981"/>
+        <circle cx="100" cy="64" r="22" fill="#fcd9a8"/>
+        <ellipse cx="100" cy="46" rx="20" ry="10" fill="#1e3a5f"/>
+        <path d="M91 61 Q94 64 97 61" stroke="#333" stroke-width="2" fill="none"/>
+        <path d="M103 61 Q106 64 109 61" stroke="#333" stroke-width="2" fill="none"/>
+        <line x1="122" y1="90" x2="148" y2="76" stroke="#fcd9a8" stroke-width="9" stroke-linecap="round"/>
+        <ellipse cx="155" cy="66" rx="18" ry="8" fill="#d97706"/>
+        <rect x="138" y="66" width="35" height="6" fill="#22c55e"/>
+        <rect x="138" y="61" width="35" height="6" fill="#c2410c"/>
+        <ellipse cx="155" cy="61" rx="18" ry="7" fill="#d97706"/>
+      </svg>
+      <span class="opt-label">B</span>
+    </div>
+    <div class="img-option" onclick="selectImgOption(this)">
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="140" fill="#eff6ff"/>
+        <rect x="78" y="78" width="44" height="38" rx="6" fill="#6366f1"/>
+        <circle cx="100" cy="64" r="22" fill="#fcd9a8"/>
+        <ellipse cx="100" cy="46" rx="20" ry="10" fill="#7c3aed"/>
+        <line x1="88" y1="60" x2="88" y2="66" stroke="#333" stroke-width="2"/>
+        <line x1="112" y1="60" x2="112" y2="66" stroke="#333" stroke-width="2"/>
+        <line x1="78" y1="90" x2="57" y2="80" stroke="#fcd9a8" stroke-width="9" stroke-linecap="round"/>
+        <line x1="122" y1="90" x2="143" y2="80" stroke="#fcd9a8" stroke-width="9" stroke-linecap="round"/>
+        <rect x="50" y="73" width="25" height="18" rx="2" fill="#fff" stroke="#6366f1" stroke-width="2"/>
+        <rect x="75" y="73" width="25" height="18" rx="2" fill="#fff" stroke="#6366f1" stroke-width="2"/>
+        <line x1="54" y1="79" x2="71" y2="79" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="54" y1="83" x2="71" y2="83" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="78" y1="79" x2="95" y2="79" stroke="#94a3b8" stroke-width="1"/>
+      </svg>
+      <span class="opt-label">C</span>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 20</div>
+  <div class="q-text">Listen and select the correct image.</div>
+  <button class="audio-btn" onclick="playAudio(this,'The boy is riding a bicycle.')"><span>▶</span> Play Audio</button>
+  <div class="img-options" data-question="20" data-answer="B">
+    <div class="img-option" onclick="selectImgOption(this)">
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="140" fill="#e0f2fe"/>
+        <rect x="0" y="88" width="200" height="52" fill="#38bdf8" opacity="0.45"/>
+        <circle cx="100" cy="78" r="17" fill="#fcd9a8"/>
+        <ellipse cx="100" cy="63" rx="15" ry="7" fill="#1e3a5f"/>
+        <path d="M70 88 Q100 73 130 88" stroke="#fcd9a8" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M60 100 Q100 88 140 100" stroke="#38bdf8" stroke-width="5" fill="none"/>
+      </svg>
+      <span class="opt-label">A</span>
+    </div>
+    <div class="img-option" onclick="selectImgOption(this)">
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="140" fill="#fefce8"/>
+        <line x1="10" y1="118" x2="190" y2="118" stroke="#d1d5db" stroke-width="2"/>
+        <circle cx="65" cy="108" r="20" fill="none" stroke="#334155" stroke-width="4"/>
+        <circle cx="135" cy="108" r="20" fill="none" stroke="#334155" stroke-width="4"/>
+        <line x1="65" y1="88" x2="65" y2="128" stroke="#64748b" stroke-width="1.5"/>
+        <line x1="45" y1="108" x2="85" y2="108" stroke="#64748b" stroke-width="1.5"/>
+        <line x1="135" y1="88" x2="135" y2="128" stroke="#64748b" stroke-width="1.5"/>
+        <line x1="115" y1="108" x2="155" y2="108" stroke="#64748b" stroke-width="1.5"/>
+        <line x1="65" y1="108" x2="100" y2="76" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+        <line x1="100" y1="76" x2="135" y2="108" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+        <line x1="100" y1="76" x2="88" y2="103" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+        <line x1="88" y1="103" x2="65" y2="108" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+        <line x1="100" y1="76" x2="118" y2="66" stroke="#334155" stroke-width="3" stroke-linecap="round"/>
+        <line x1="112" y1="63" x2="124" y2="63" stroke="#334155" stroke-width="3" stroke-linecap="round"/>
+        <line x1="88" y1="103" x2="88" y2="88" stroke="#334155" stroke-width="3"/>
+        <line x1="82" y1="88" x2="94" y2="88" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="105" cy="56" r="13" fill="#fcd9a8"/>
+        <ellipse cx="105" cy="46" rx="12" ry="7" fill="#ef4444"/>
+        <line x1="105" y1="69" x2="95" y2="88" stroke="#ef4444" stroke-width="7" stroke-linecap="round"/>
+        <line x1="103" y1="75" x2="120" y2="65" stroke="#fcd9a8" stroke-width="5" stroke-linecap="round"/>
+        <line x1="95" y1="88" x2="88" y2="101" stroke="#334155" stroke-width="5" stroke-linecap="round"/>
+        <line x1="95" y1="88" x2="105" y2="101" stroke="#334155" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <span class="opt-label">B</span>
+    </div>
+    <div class="img-option" onclick="selectImgOption(this)">
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="140" fill="#fdf4ff"/>
+        <line x1="10" y1="118" x2="190" y2="118" stroke="#d1d5db" stroke-width="2"/>
+        <circle cx="105" cy="50" r="15" fill="#fcd9a8"/>
+        <ellipse cx="105" cy="39" rx="13" ry="7" fill="#7c3aed"/>
+        <rect x="90" y="65" width="28" height="28" rx="5" fill="#7c3aed"/>
+        <line x1="90" y1="72" x2="69" y2="60" stroke="#fcd9a8" stroke-width="6" stroke-linecap="round"/>
+        <line x1="118" y1="72" x2="137" y2="86" stroke="#fcd9a8" stroke-width="6" stroke-linecap="round"/>
+        <line x1="96" y1="93" x2="79" y2="118" stroke="#334155" stroke-width="6" stroke-linecap="round"/>
+        <line x1="112" y1="93" x2="126" y2="108" stroke="#334155" stroke-width="6" stroke-linecap="round"/>
+        <line x1="126" y1="108" x2="118" y2="118" stroke="#334155" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <span class="opt-label">C</span>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="q-number">Question 21</div>
+  <div class="q-text">Listen and choose the matching image.</div>
+  <button class="audio-btn" onclick="playAudio(this,'It is raining. She is holding an umbrella.')"><span>▶</span> Play Audio</button>
+  <div class="img-options" data-question="21" data-answer="C">
+    <div class="img-option" onclick="selectImgOption(this)">
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="140" fill="#fef9c3"/>
+        <circle cx="100" cy="52" r="26" fill="#fbbf24"/>
+        <line x1="100" y1="17" x2="100" y2="8" stroke="#fbbf24" stroke-width="3"/>
+        <line x1="127" y1="25" x2="134" y2="18" stroke="#fbbf24" stroke-width="3"/>
+        <line x1="137" y1="52" x2="146" y2="52" stroke="#fbbf24" stroke-width="3"/>
+        <line x1="73" y1="25" x2="66" y2="18" stroke="#fbbf24" stroke-width="3"/>
+        <line x1="63" y1="52" x2="54" y2="52" stroke="#fbbf24" stroke-width="3"/>
+        <circle cx="100" cy="106" r="15" fill="#fcd9a8"/>
+        <path d="M93 105 Q100 112 107 105" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <rect x="87" y="121" width="26" height="16" rx="4" fill="#f59e0b"/>
+      </svg>
+      <span class="opt-label">A</span>
+    </div>
+    <div class="img-option" onclick="selectImgOption(this)">
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="140" fill="#e0f2fe"/>
+        <circle cx="50" cy="28" r="5" fill="white" stroke="#bae6fd" stroke-width="1.5"/>
+        <circle cx="100" cy="18" r="6" fill="white" stroke="#bae6fd" stroke-width="1.5"/>
+        <circle cx="155" cy="28" r="5" fill="white" stroke="#bae6fd" stroke-width="1.5"/>
+        <circle cx="100" cy="118" r="20" fill="white" stroke="#94a3b8" stroke-width="2"/>
+        <circle cx="100" cy="90" r="14" fill="white" stroke="#94a3b8" stroke-width="2"/>
+        <circle cx="100" cy="70" r="10" fill="white" stroke="#94a3b8" stroke-width="2"/>
+        <circle cx="97" cy="68" r="2" fill="#334155"/>
+        <circle cx="103" cy="68" r="2" fill="#334155"/>
+        <path d="M97 72 Q100 75 103 72" stroke="#334155" stroke-width="1.5" fill="none"/>
+      </svg>
+      <span class="opt-label">B</span>
+    </div>
+    <div class="img-option" onclick="selectImgOption(this)">
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="140" fill="#dbeafe"/>
+        <line x1="40" y1="8" x2="35" y2="25" stroke="#93c5fd" stroke-width="2" stroke-linecap="round"/>
+        <line x1="70" y1="4" x2="65" y2="21" stroke="#93c5fd" stroke-width="2" stroke-linecap="round"/>
+        <line x1="100" y1="6" x2="95" y2="23" stroke="#93c5fd" stroke-width="2" stroke-linecap="round"/>
+        <line x1="130" y1="4" x2="125" y2="21" stroke="#93c5fd" stroke-width="2" stroke-linecap="round"/>
+        <line x1="160" y1="8" x2="155" y2="25" stroke="#93c5fd" stroke-width="2" stroke-linecap="round"/>
+        <line x1="0" y1="126" x2="200" y2="126" stroke="#94a3b8" stroke-width="1.5"/>
+        <rect x="82" y="96" width="28" height="26" rx="5" fill="#6366f1"/>
+        <circle cx="96" cy="86" r="13" fill="#fcd9a8"/>
+        <path d="M70 66 Q96 40 122 66 Z" fill="#ef4444"/>
+        <path d="M70 66 Q83 58 96 66" fill="#dc2626"/>
+        <path d="M96 66 Q109 58 122 66" fill="#f87171"/>
+        <line x1="96" y1="66" x2="96" y2="97" stroke="#92400e" stroke-width="3" stroke-linecap="round"/>
+        <path d="M96 97 Q96 105 89 105" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <line x1="110" y1="103" x2="96" y2="94" stroke="#fcd9a8" stroke-width="6" stroke-linecap="round"/>
+        <line x1="88" y1="122" x2="82" y2="126" stroke="#334155" stroke-width="5" stroke-linecap="round"/>
+        <line x1="104" y1="122" x2="110" y2="126" stroke="#334155" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <span class="opt-label">C</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── ACTION BUTTONS ── -->
+<div class="action-bar">
+  <button class="btn btn-send" id="sendBtn" onclick="submitTest()">Send ✓</button>
+  <button class="btn btn-save" onclick="saveProgress()">Save 💾</button>
+  <button class="btn btn-cancel" onclick="cancelTest()">Cancel ✕</button>
+</div>
+
+<!-- ── SCORE PANEL ── -->
+<div class="score-panel" id="scorePanel">
+  <div class="score-emoji" id="scoreEmoji">🎉</div>
+  <div class="score-title">Your Results</div>
+  <div class="score-num" id="scoreNum">0/21</div>
+  <div class="score-msg" id="scoreMsg"></div>
+  <div class="score-breakdown">
+    <div class="breakdown-item"><div class="bi-label">Listening</div><div class="bi-val" id="listenScore">—</div></div>
+    <div class="breakdown-item"><div class="bi-label">Reading</div><div class="bi-val" id="readScore">—</div></div>
+    <div class="breakdown-item"><div class="bi-label">Listen &amp; Choose</div><div class="bi-val" id="imgScore">—</div></div>
+  </div>
+  <button class="btn-retry" onclick="retryTest()">Try Again 🔄</button>
+</div>
+
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  DICTIONARY — Extended
+// ══════════════════════════════════════════
+const dictionary = {
+  // General
+  "apple":"manzana","student":"estudiante","weather":"clima","sunny":"soleado",
+  "warm":"caliente","teacher":"profesor","school":"escuela","email":"correo",
+  "security":"seguridad","company":"empresa","plan":"plan","meeting":"reunión",
+  "thank":"gracias","issue":"problema","important":"importante","working":"trabajando",
+  "improving":"mejorando","currently":"actualmente","measures":"medidas","regular":"regular",
+  "updates":"actualizaciones","agree":"acordar","enhance":"mejorar","defenses":"defensas",
+  "planning":"planificando","following":"siguiente","actions":"acciones","conduct":"realizar",
+  "full":"completo","audit":"auditoría","identify":"identificar","vulnerabilities":"vulnerabilidades",
+  "mandatory":"obligatorio","training":"entrenamiento","employees":"empleados","implement":"implementar",
+  "advanced":"avanzado","monitoring":"monitoreo","tools":"herramientas","threat":"amenaza",
+  "detection":"detección","review":"revisar","update":"actualizar","incident":"incidente",
+  "response":"respuesta","happy":"feliz","discuss":"discutir","detail":"detalle",
+  // Ticket
+  "departure":"salida","arrival":"llegada","passenger":"pasajero","boarding":"abordaje",
+  "flight":"vuelo","gate":"puerta","seat":"asiento","destination":"destino","airline":"aerolínea",
+  // Announcement
+  "announce":"anunciar","annual":"anual","science":"ciencia","fair":"feria","hosting":"alojando",
+  "gymnasium":"gimnasio","participate":"participar","presenting":"presentando","project":"proyecto",
+  "submitted":"enviado","evaluated":"evaluado","panel":"panel","judges":"jueces","university":"universidad",
+  "winners":"ganadores","certificate":"certificado","excellence":"excelencia","monetary":"monetario",
+  "prize":"premio","refreshments":"refrigerios","available":"disponible","community":"comunidad",
+  "warmly":"calurosamente","welcome":"bienvenido","attend":"asistir","information":"información",
+  // Chat
+  "excited":"emocionado","visiting":"visitando","rainforest":"bosque lluvioso","museum":"museo",
+  "lunch":"almuerzo","bottle":"botella","permission":"permiso","parents":"padres","signed":"firmado",
+  "slip":"formulario","handed":"entregado","forget":"olvidar",
+  // Info text
+  "small":"pequeño","located":"ubicado","central":"central","internationally":"internacionalmente",
+  "recognized":"reconocido","extraordinary":"extraordinario","commitment":"compromiso","protecting":"protectando",
+  "environment":"ambiente","surface":"superficie","biodiversity":"biodiversidad","including":"incluyendo",
+  "thousands":"miles","plant":"planta","bird":"ave","insect":"insecto","species":"especies",
+  "established":"establecido","network":"red","national":"nacional","parks":"parques","protected":"protegido",
+  "areas":"áreas","cover":"cubrir","approximately":"aproximadamente","territory":"territorio",
+  "serve":"servir","vital":"vital","habitats":"hábitats","endangered":"en peligro","jaguar":"jaguar",
+  "tapir":"tapir","turtles":"tortugas","nest":"anidar","beaches":"playas","renewable":"renovable",
+  "energy":"energía","generated":"generado","electricity":"electricidad","clean":"limpio","sources":"fuentes",
+  "hydroelectric":"hidroeléctrica","geothermal":"geotérmica","wind":"viento","power":"energía/poder",
+  "government":"gobierno","continues":"continúa","promote":"promover","sustainable":"sostenible",
+  "tourism":"turismo","economy":"economía","attracting":"atrayendo","visitors":"visitantes",
+  "world":"mundo","enjoy":"disfrutar","volcanoes":"volcanes","wildlife":"vida silvestre"
+}; 
+// ══════════════════════════════════════════
+//  TRANSLATION SYSTEM
+// ══════════════════════════════════════════
+function enableWordTranslation() {
+  const zones = document.querySelectorAll('.translatable-zone, .email-body, .info-card, .announce-body, .chat-card');
+  zones.forEach(zone => {
+    processNode(zone);
+  });
+}
+
+function processNode(node) {
+  if (node.nodeType === Node.TEXT_NODE) {
+    const text = node.textContent;
+    if (!text.trim()) return;
+    const parts = text.split(/(\s+)/);
+    let changed = false;
+    const fragment = document.createDocumentFragment();
+    parts.forEach(part => {
+      const clean = part.replace(/[^a-zA-Z]/g, '').toLowerCase();
+      if (clean && dictionary[clean]) {
+        const span = document.createElement('span');
+        span.className = 'translatable';
+        span.dataset.original = part;
+        span.dataset.translation = dictionary[clean];
+        span.textContent = part;
+        span.onclick = function(e) { e.stopPropagation(); toggleWord(this); };
+        fragment.appendChild(span);
+        changed = true;
+      } else {
+        fragment.appendChild(document.createTextNode(part));
+      }
+    });
+    if (changed) node.parentNode.replaceChild(fragment, node);
+  } else if (node.nodeType === Node.ELEMENT_NODE) {
+    if (['SCRIPT','STYLE','BUTTON','INPUT'].includes(node.tagName)) return;
+    // Don't re-process already wrapped spans
+    if (node.classList && node.classList.contains('translatable')) return;
+    Array.from(node.childNodes).forEach(child => processNode(child));
+  }
+}
+
+function toggleWord(el) {
+  if (el.classList.contains('translated')) {
+    el.textContent = el.dataset.original;
+    el.classList.remove('translated');
+  } else {
+    el.textContent = el.dataset.translation;
+    el.classList.add('translated');
+  }
+}
+
+// ══════════════════════════════════════════
+//  AUDIO / TTS
+// ══════════════════════════════════════════
+let currentBtn = null, speaking = false;
+
+function playAudio(btn, text) {
+  if (speaking) {
+    window.speechSynthesis.cancel();
+    if (currentBtn) { currentBtn.innerHTML = '<span>▶</span> Play Audio'; currentBtn.classList.remove('playing'); }
+    if (currentBtn === btn) { speaking = false; currentBtn = null; return; }
+  }
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-US'; utter.rate = 0.88; utter.pitch = 1.05;
+  const voices = window.speechSynthesis.getVoices();
+  const pref = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Samantha')||v.name.includes('Google US')||v.name.includes('Karen')))
+            || voices.find(v => v.lang.startsWith('en'));
+  if (pref) utter.voice = pref;
+  btn.innerHTML = '<span>⏸</span> Playing…'; btn.classList.add('playing');
+  currentBtn = btn; speaking = true;
+  utter.onend = () => {
+    btn.innerHTML = '<span>▶</span> Play Audio';
+    btn.classList.remove('playing'); speaking = false; currentBtn = null;
+  };
+  window.speechSynthesis.speak(utter);
+}
+window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+
+// ══════════════════════════════════════════
+//  SELECTION
+// ══════════════════════════════════════════
+function selectOption(el) {
+  if (el.closest('.options').classList.contains('locked')) return;
+  el.closest('.options').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  updateProgress();
+}
+
+function selectImgOption(el) {
+  if (el.closest('.img-options').classList.contains('locked')) return;
+  el.closest('.img-options').querySelectorAll('.img-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  updateProgress();
+}
+
+// ══════════════════════════════════════════
+//  PROGRESS
+// ══════════════════════════════════════════
+const TOTAL_Q = 21;
+function updateProgress() {
+  let answered = 0;
+  document.querySelectorAll('.options').forEach(g => { if (g.querySelector('.option.selected')) answered++; });
+  document.querySelectorAll('.img-options').forEach(g => { if (g.querySelector('.img-option.selected')) answered++; });
+  document.getElementById('progressBar').style.width = (answered / TOTAL_Q * 100) + '%';
+}
+
+// ══════════════════════════════════════════
+//  SUBMIT
+// ══════════════════════════════════════════
+function submitTest() {
+  let total = 0, listening = 0, reading = 0, imgSec = 0;
+
+  document.querySelectorAll('.options').forEach(group => {
+    const correct = group.dataset.answer;
+    const opts = [...group.querySelectorAll('.option')];
+    const selected = group.querySelector('.option.selected');
+    group.classList.add('locked');
+
+    opts.forEach((opt, i) => {
+      const letter = String.fromCharCode(65 + i);
+      opt.classList.remove('selected');
+      if (letter === correct) {
+        opt.classList.add('correct');
+        const tag = document.createElement('span');
+        tag.className = 'feedback-tag tag-correct'; tag.textContent = '✓ Correct';
+        opt.appendChild(tag);
+      } else if (selected === opt) {
+        opt.classList.add('wrong');
+        const tag = document.createElement('span');
+        tag.className = 'feedback-tag tag-wrong'; tag.textContent = '✗ Wrong';
+        opt.appendChild(tag);
+      }
+    });
+
+    const selIdx = selected ? opts.indexOf(selected) : -1;
+    const isOk = selIdx >= 0 && String.fromCharCode(65 + selIdx) === correct;
+    if (isOk) {
+      total++;
+      const qn = parseInt(group.dataset.question);
+      if (qn <= 5) listening++;
+      else reading++;
+    }
+  });
+
+  document.querySelectorAll('.img-options').forEach(group => {
+    const correct = group.dataset.answer;
+    const opts = [...group.querySelectorAll('.img-option')];
+    const selected = group.querySelector('.img-option.selected');
+    group.classList.add('locked');
+    opts.forEach((opt, i) => {
+      opt.classList.remove('selected');
+      if (String.fromCharCode(65 + i) === correct) opt.classList.add('correct');
+      else if (selected === opt) opt.classList.add('wrong');
+    });
+    const selIdx = selected ? opts.indexOf(selected) : -1;
+    if (selIdx >= 0 && String.fromCharCode(65 + selIdx) === correct) { total++; imgSec++; }
+  });
+
+  const panel = document.getElementById('scorePanel');
+  panel.classList.add('visible');
+  document.getElementById('scoreNum').textContent = total + '/' + TOTAL_Q;
+  document.getElementById('listenScore').textContent = listening + '/5';
+  document.getElementById('readScore').textContent = reading + '/13';
+  document.getElementById('imgScore').textContent = imgSec + '/3';
+
+  const pct = Math.round(total / TOTAL_Q * 100);
+  let emoji, msg;
+  if (pct >= 90)      { emoji = '🏆'; msg = 'Excellent! Outstanding performance!'; }
+  else if (pct >= 70) { emoji = '🎉'; msg = 'Good job! Keep practicing!'; }
+  else if (pct >= 50) { emoji = '📚'; msg = 'Not bad — review the sections you missed.'; }
+  else                { emoji = '💪'; msg = 'Keep studying — you can do it!'; }
+
+  document.getElementById('scoreEmoji').textContent = emoji;
+  document.getElementById('scoreMsg').textContent = msg;
+  document.getElementById('progressBar').style.width = '100%';
+  document.getElementById('sendBtn').disabled = true;
+  panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ══════════════════════════════════════════
+//  SAVE / CANCEL / RETRY
+// ══════════════════════════════════════════
+function saveProgress() { showToast('✅ Progress saved successfully!'); }
+
+function cancelTest() {
+  if (confirm('Are you sure you want to cancel? All answers will be cleared.')) retryTest();
+}
+
+function retryTest() {
+  document.querySelectorAll('.option').forEach(o => {
+    o.className = 'option';
+    const tag = o.querySelector('.feedback-tag');
+    if (tag) tag.remove();
+    o.onclick = () => selectOption(o);
+  });
+  document.querySelectorAll('.img-option').forEach(o => {
+    o.className = 'img-option';
+    o.onclick = () => selectImgOption(o);
+  });
+  document.querySelectorAll('.options, .img-options').forEach(g => g.classList.remove('locked'));
+  document.getElementById('scorePanel').classList.remove('visible');
+  document.getElementById('sendBtn').disabled = false;
+  document.getElementById('progressBar').style.width = '0%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ══════════════════════════════════════════
+//  BARCODE DECORATION
+// ══════════════════════════════════════════
+function buildBarcode() {
+  const el = document.getElementById('barcodeLines');
+  if (!el) return;
+  const widths = [2,1,3,1,2,1,1,3,2,1,3,1,2,2,1,3,1,2,1,1,3,2,1,2,3,1,1,2,3,1,2];
+  widths.forEach((w, i) => {
+    const bar = document.createElement('span');
+    bar.style.width = w + 'px';
+    bar.style.height = (18 + (i % 3) * 4) + 'px';
+    el.appendChild(bar);
+  });
+}
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+window.onload = () => {
+  buildBarcode();
+  enableWordTranslation();
+};
+</script>
+</body>
+</html>
